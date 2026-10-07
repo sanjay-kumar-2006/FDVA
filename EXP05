@@ -1,0 +1,35 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from sklearn.datasets import load_iris
+
+iris = load_iris()
+
+df = pd.DataFrame(iris.data, columns=iris.feature_names)
+df['species'] = iris.target
+
+df.head()
+x = np.arange(10)
+y = df['sepal length (cm)'][:10]
+
+plt.plot(x, y, color='blue', label='Sepal Length')
+plt.xlabel('Sample')
+plt.ylabel('Sepal Length (cm)')
+plt.title('Line Plot - Iris Dataset')
+plt.legend()
+plt.show()
+categories = iris.target_names
+values = df.groupby('species')['sepal length (cm)'].mean()
+
+plt.bar(categories, values, color='orange')
+plt.xlabel('Species')
+plt.ylabel('Average Sepal Length (cm)')
+plt.title('Bar Plot - Iris Dataset')
+plt.show()
+data = df['sepal length (cm)']
+
+plt.hist(data, bins=20, color='purple', edgecolor='black')
+plt.xlabel('Sepal Length (cm)')
+plt.ylabel('Frequency')
+plt.title('Histogram - Iris Dataset')
+plt.show()
