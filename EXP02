@@ -1,0 +1,25 @@
+import pandas as pd
+import requests
+
+df_csv = pd.read_csv("sam.csv")
+print(df_csv.head())
+
+df_excel = pd.read_excel("ram.xlsx", sheet_name="Sheet1")
+print(df_excel.head())
+
+url = "https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)"
+
+headers = {
+    "User-Agent": "Mozilla/5.0"
+}
+
+response = requests.get(url, headers=headers)
+
+tables = pd.read_html(response.text)
+
+df_web = tables[0]
+print(df_web.head())
+
+df_excel.to_excel("output.xlsx", index=False)
+
+print("Data exported successfully")
